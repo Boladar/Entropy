@@ -17,9 +17,16 @@ class World:
 
 
     def update(self):
-        pass
+        self.tiles.clear()
+        self.create_world_dictionary()
 
-    def create_world_array(self):
+        for p in self.particles:
+            collision_array = self.create_collision_array(p)
+            p.update(collision_array)
+            
+
+
+    def create_world_dictionary(self):
         
         for p in self.particles:
             self.assign_tile(p)
@@ -28,10 +35,21 @@ class World:
         
         collision_array = []
         tile_coordinates = self.get_tile_coordinates(particle)
-        tile_hash = hash(tile_coordinates[0] + tile_coordinates[1])
 
-        
+        x = tile_coordinates[0]
+        y = tile_coordinates[1]
 
+        for i in range(-1,1):
+            for j in range(-1,1):
+                tile_hash = self.tile_hash(x+i,y+j)
+
+                if tile_hash in self.tiles:
+                    collision_array = collision_array + self.tiles[tile_hash].particles
+
+        return collision_array
+
+    def tile_hash(self,x,y):
+        return hash('{},{}'.format(x,y))
 
     def assign_tile(self,particle):
         coordinates = self.get_tile_coordinates(particle)
