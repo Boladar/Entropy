@@ -7,3 +7,6 @@ class Particle:
         self.y = y
         self.Vx = Vx
         self.Vy = Vy
+
+    def Update(self):
+        pass
