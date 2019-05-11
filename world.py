@@ -12,7 +12,7 @@ class World:
         self.particles = []
         self.tiles = {}
 
-        for i in range(constants.WORLD_SIZE):
+        for i in range(constants.NUMBER_OF_PARTICLES):
             self.particles.append(Particle(0,i,random.randint(-constants.MAX_SPEED,constants.MAX_SPEED),random.randint(-constants.MAX_SPEED,constants.MAX_SPEED)))
 
 
