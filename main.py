@@ -13,9 +13,6 @@ def calculate_w():
         pass
     
 
-
-
 if __name__ == "__main__":
-
 
     World = World(NUMBER_OF_PARTICLES,WORLD_SIZE)

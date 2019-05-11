@@ -1,3 +1,6 @@
+import math
+import random
+
 PARTICLE_MASS = 1
 PARTICLE_RADIUS = 0.1
 
@@ -5,3 +8,4 @@ WORLD_SIZE = 100
 NUMBER_OF_PARTICLES =  math.sqrt(WORLD_SIZE)
 
 W = 100
+MAX_SPEED = W / (2 * NUMBER_OF_PARTICLES)
