@@ -3,6 +3,8 @@ import random
 import math
 from particle import Particle
 from tile import Tile
+
+
 class World:
 
     def __init__(self,N,R):
@@ -13,17 +15,32 @@ class World:
         self.tiles = {}
 
         for i in range(constants.NUMBER_OF_PARTICLES):
-            self.particles.append(Particle(0,i,random.randint(-constants.MAX_SPEED,constants.MAX_SPEED),random.randint(-constants.MAX_SPEED,constants.MAX_SPEED)))
+            x = random.randint(10, 50)
+            # x = random.randint(10,constants.WORLD_SIZE-10)
+            y = random.randint(10, constants.WORLD_SIZE - 10)
+            vx = random.uniform(-constants.MAX_SPEED,constants.MAX_SPEED)
+            vy = random.uniform(-constants.MAX_SPEED,constants.MAX_SPEED)
+            if (i != 0):
+                for j in self.particles:
+                    while(math.sqrt((j.x - x)*(j.x - x)+(j.y - y)*(j.y - y))<constants.PARTICLE_RADIUS*2):
+                        x = random.randint(10, 50)
+                        # x = random.randint(10,constants.WORLD_SIZE-10)
+                        y = random.randint(10, constants.WORLD_SIZE - 10)
+            self.particles.append(Particle(x, y, vx, vy))
 
 
     def update(self):
         self.tiles.clear()
         self.create_world_dictionary()
 
-        for p in self.particles:
-            collision_array = self.create_collision_array(p)
-            p.update(collision_array)
-            
+        for p1 in self.particles:
+            #collision_array = self.create_collision_array(p)
+            #p.update_p(collision_array)
+            for p2 in self.particles:
+                if p1 != p2:
+                    p1.wall()
+                    p1.collision(p2)
+                    p1.move()
 
 
     def create_world_dictionary(self):
@@ -67,3 +84,5 @@ class World:
         y = math.floor(particle.y)
 
         return [x,y]
+
+
