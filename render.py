@@ -6,7 +6,7 @@ import math
 
 pygame.init()
 
-size = width, height = 500, 500
+size = width, height = 1000, 600
 speed = [2, 2]
 black = 0, 0, 0
 white = 255, 255, 255
@@ -20,7 +20,7 @@ bounds_offset_x = 5 * scale
 bounds_offset_y = 5 * scale
 
 def draw_bounds(color):
-    pygame.draw.rect(screen,color,[0,0,constants.WORLD_SIZE*scale,constants.WORLD_SIZE*scale],20)
+    pygame.draw.rect(screen,color,[0,0,constants.WORLD_SIZE,constants.WORLD_SIZE],2)
 
     #bounds_offset = 5 + 1 * 10 * scale
 
@@ -41,7 +41,7 @@ while 1:
     
     screen.fill(black)
 
-    #draw_bounds(red)
+    draw_bounds(red)
     draw_particles(w.particles,white)
     w.update()
     pygame.display.flip()
