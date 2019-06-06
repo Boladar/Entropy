@@ -74,6 +74,7 @@ for i in range(constants.TIME_RANGE):
 
     pygame.display.flip()
 
+w.particle_positions()
 chart.append(go.Scatter(x = time, y = entropy, mode = 'lines', name="Entropy"))
 plotly.offline.plot(chart, filename="entropy.html")
 

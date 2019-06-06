@@ -72,7 +72,7 @@ class Particle:
                 self.vx = V * math.cos(angle)
                 self.vy = V * math.sin(angle)
                 p.vx = -Vp * math.cos(angle)
-                p.vy = -Vp * math.sin(angle)
+                p.vy = -Vp * math.cos(angle)
             elif dy == 0:
                 if dx < 0:
                     angle = 0

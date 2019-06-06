@@ -34,6 +34,11 @@ class World:
             sum = 0
         return descreet_world
 
+    def particle_positions(self):
+        for i,p in enumerate(self.particles):
+            print("Particle {} position XY: ({},{}) and position Vxy: ({},{})".format(i,int(p.x),int(p.y),int(p.vx),int(p.vy)))
+
+
     def therm_prob(self):
         descreet_world = self.number_of_particles()
         power_of_eap = constants.NUMBER_OF_PARTICLES * math.log1p(
