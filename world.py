@@ -9,7 +9,6 @@ class World:
     def __init__(self,Size):
         self.Size = Size
         self.particles = []
-        self.entropy_array = []
 
         for i in range(constants.NUMBER_OF_PARTICLES):
             x = random.randint(10, 100)
@@ -51,7 +50,6 @@ class World:
         for i in descreet_world:
             power_of_en = i * math.log1p(i) - i
             power_of_eap -= power_of_en
-        #self.entropy_array.append(power_of_eap)
         return power_of_eap
 
     def update(self):
