@@ -3,10 +3,12 @@ import pygame
 import constants
 import random
 import math
+import plotly.plotly
+import plotly.graph_objs as go
 
 pygame.init()
 
-size = width, height = 1000, 600
+size = width, height = 1200, 900
 speed = [2, 2]
 black = 0, 0, 0
 white = 255, 255, 255
@@ -32,9 +34,12 @@ def draw_particles(particles : list, color):
 
 from world import World
 
-w = World(500,500)
+w = World(constants.WORLD_SIZE)
+entropy = []
+time = []
+chart = []
 
-while 1:
+for i in range(constants.TIME_RANGE):
     for event in pygame.event.get():
         if event.type == pygame.QUIT: 
             sys.exit()
@@ -44,5 +49,11 @@ while 1:
     draw_bounds(red)
     draw_particles(w.particles,white)
     w.update()
+    entropy.append(w.entropy())
+    time.append(i)
     pygame.display.flip()
 
+chart.append(go.Scatter(x = time,y = entropy,mode = 'lines', name="Entropy"))
+plotly.offline.plot(chart,filename="entropy.html")
+
+sys.exit()
