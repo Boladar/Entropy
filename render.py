@@ -65,14 +65,16 @@ for i in range(constants.TIME_RANGE):
     draw_particles(w.particles,white)
 
     w.update()
-    e = w.entropy()
-    entropy.append(e)
+    if i%5 == 0:
+        e = w.entropy()
+        entropy.append(e)
+        time.append(i * constants.TIME_STEP)
 
     text_tmp(e)
 
-    time.append(i*constants.TIME_STEP)
 
     pygame.display.flip()
+
 
 w.particle_positions()
 chart.append(go.Scatter(x = time, y = entropy, mode = 'lines', name="Entropy"))
