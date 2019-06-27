@@ -10,7 +10,6 @@ class Particle:
         self.y = y
         self.vx = vx
         self.vy = vy
-        self.mass = 1
 
     def wall(self):
         if self.x < constants.PARTICLE_RADIUS:
@@ -18,7 +17,7 @@ class Particle:
             self.vx *= -1
         if self.x > constants.WORLD_SIZE-constants.PARTICLE_RADIUS:
             self.x = 2 * (constants.WORLD_SIZE - constants.PARTICLE_RADIUS) - self.x
-            self.vx *=-1
+            self.vx *= -1
         if self.y < constants.PARTICLE_RADIUS:
             self.y = 2 * constants.PARTICLE_RADIUS - self.y
             self.vy *= -1
@@ -26,7 +25,7 @@ class Particle:
             self.y = 2 * (constants.WORLD_SIZE - constants.PARTICLE_RADIUS) - self.y
             self.vy *=-1
 
-    def collision(self, p):
+    def collision(self, p, m):
         dx = self.x - p.x
         dy = self.y - p.y
         dist = math.sqrt(dx * dx + dy * dy)
@@ -51,11 +50,26 @@ class Particle:
             sin_convert = math.sin(angle_collision)
 
             self.vx = cos_convert * Vx1 - sin_convert * Vy1
+            if self.vx > m:
+                self.vx = random.randint(0,m)
+            elif self.vx < -m:
+                self.vx = -(random.randint(0,m))
             self.vy = sin_convert * Vx1 + cos_convert * Vy1
+            if self.vy > m:
+                self.vy = random.randint(0,m)
+            elif self.vy < -m:
+                self.vy = -(random.randint(0,m))
 
             p.vx = cos_convert * Vx2 - sin_convert * Vy2
+            if p.vx > m:
+                p.vx = random.randint(0,m)
+            if p.vx < -m:
+                p.vx = -random.randint(0,m)
             p.vy = sin_convert * Vx2 + cos_convert * Vy2
-
+            if p.vy > m:
+                p.vy = random.randint(0,m)
+            if p.vy < -m:
+                p.vy = -random.randint(0,m)
             overlap = 0.5 * (dist - 2 * constants.PARTICLE_RADIUS)
             self.x -= overlap * (self.x - p.x) / dist
             self.y -= overlap * (self.y - p.y) / dist
@@ -63,5 +77,5 @@ class Particle:
             p.x += overlap * (self.y - p.y) / dist
 
     def move(self):
-        self.x+=(self.vx*constants.TIME_STEP)
-        self.y+=(self.vy*constants.TIME_STEP)
+        self.x += (self.vx * constants.TIME_STEP)
+        self.y += (self.vy * constants.TIME_STEP)
